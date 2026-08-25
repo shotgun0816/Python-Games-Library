@@ -1,0 +1,52 @@
+import tkinter as tk
+from tkinter import PhotoImage
+import tkinter.font as tkFont
+import tic_tac_toe as game_1
+
+def main():
+        root=tk.Tk()
+        root.geometry("2000x2500")
+        root.title("Games")
+        menu=tk.Frame(root)
+        menu.pack(fill="both")
+
+        title_font=tkFont.Font(family="Times", size=30)
+        label_title=tk.Label(menu, text="Games.py", font=title_font)
+        label_title.pack(side="top", pady=50)
+
+        def launch_tic_tac_toe():
+                menu.forget()
+                game1_font=tkFont.Font(family="Times", size=30)
+                game1_title=tk.Label(root, text="Tic Tac Toe", font=game1_font)
+                game1_title.pack(side="top", pady=5)
+                game1_frame=tk.Frame(root, width=600, height=600, bg="black")
+                game1_frame.pack(side="top", pady=5)
+                game1_frame.pack_propagate(False)
+
+                stop_game=game_1.run_game(game1_frame, root)
+
+                def return_to_menu():
+                        stop_game()
+                        game1_frame.destroy()
+                        game1_title.destroy()
+                        return_button.destroy()
+                        menu.pack(fill="both")
+
+                return_button=tk.Button(
+                        root, text="Return to Menu", width=25,
+                        command=return_to_menu
+                )
+                return_button.pack(side="top", pady=20)
+
+        button_1=tk.Button(menu, text="Tic Tac Toe", width=50, command=launch_tic_tac_toe)
+        button_1.pack(side="top", pady=5)
+
+        exit=tk.Button(menu, text="Quit", width=50, command=root.destroy)
+        exit.pack(side="top", pady=50)
+
+
+        root.mainloop()
+        
+
+if __name__ == "__main__":
+    main()
