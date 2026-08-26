@@ -53,6 +53,28 @@ def run_game(parent, root):
         nonlocal player_turn
         if event.type==pygame.QUIT:
             stop_game()
+        elif event.type==pygame.MOUSEBUTTONDOWN and player_turn and not game_over:
+            pos_x=event.pos
+            column=pos_x//100
+            for y in range(5, -1, -1):
+                if board[y][column]=="":
+                    board[y][column]=="X"
+                    break
+
+            
+
+    def check_winner(mark):
+        for y in range(5):
+            for x in range(6):
+                if [[board[y][x]==mark and board[y+1][x]==mark and board[y+2][x]==mark and board[y+3][x]==mark] 
+                    or [board[y][x]==mark and board[y][x+1]==mark and board[y][x+2]==mark and board[y][x+3]==mark] 
+                    or [board[y][x]==mark and board[y+1][x+1]==mark and board[y+2][x+2]==mark and board[y+3][x+3]==mark] 
+                    or [board[y][x]==mark and board[y+1][x-1] and board[y+2][x-2] and board[y+3][x-3]]
+                    ]:
+                    if player_turn==True:
+                        pass
+        
+    
 
     def game_loop():
         nonlocal after_id
