@@ -35,8 +35,10 @@ def run_game(parent, root):
     dir_path=Path(os.path.dirname(__file__))
     victory=dir_path/"crowd_small_chil_ec049202_9klCwI6.mp3"
     loser=dir_path/"downer_noise.mp3"
+    draw=dir_path/"tung-tung-sahur.mp3"
     victory_audio=pygame.mixer.Sound(victory)
     loser_audio=pygame.mixer.Sound(loser)
+    draw_audio=pygame.mixer.Sound(draw)
     
 
     def draw_lines():
@@ -116,6 +118,7 @@ def run_game(parent, root):
                     finish_game("You Win")
                     
                 elif board_full():
+                    draw_audio.play()
                     finish_game("Draw")
                 else:
                     player_turn = False
