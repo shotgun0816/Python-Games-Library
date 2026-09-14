@@ -81,13 +81,13 @@ def run_game(parent, root):
                 victory_audio.play()
                 finish_game("You Win!")
             elif board_full():
+                draw_audio.play()
                 finish_game("Draw")
             else:
                 player_turn=False
                 root.after(1000, npc_turn)
 
     def board_full():
-        draw_audio.play()
         return all(cell != "" for row in board for cell in row)
 
     def npc_turn():
@@ -109,6 +109,7 @@ def run_game(parent, root):
             loser_audio.play()
             finish_game("You Lose")
         elif board_full():
+            draw_audio.play()
             finish_game("Draw")
         else:
             player_turn=True

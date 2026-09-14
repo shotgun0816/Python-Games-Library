@@ -99,6 +99,7 @@ def run_game(parent, root):
             loser_audio.play()
             finish_game("You Lose")
         elif board_full():
+            draw_audio.play()
             finish_game("Draw")
         else:
             player_turn = True
