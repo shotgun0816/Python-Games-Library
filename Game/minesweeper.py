@@ -40,7 +40,7 @@ def run_game(parent, root):
     pygame.display.set_caption("Minesweeper")
 
     mixer.init()
-    dir_path=Path(os.path.dirname(__file__)).parent/"Audio"
+    dir_path=Path(os.path.dirname(__file__)).parent / "Audio"
     victory=dir_path/"crowd_small_chil_ec049202_9klCwI6.mp3"
     loser=dir_path/"roblox-explosion-sound.mp3"
     victory_audio=pygame.mixer.Sound(victory)
