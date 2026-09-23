@@ -1,6 +1,6 @@
 import pygame
 import os
-import random
+import tkinter as tk
 from pygame import mixer
 from pathlib import Path
 
@@ -14,6 +14,49 @@ board=[["", "", "", "", "", "", ""],
 red=(255, 0, 0)
 
 win=False
+
+def check_board_winner(board_state, mark):
+    directions = ((1, 0), (0, 1), (1, 1), (1, -1))
+    for row in range(6):
+        for column in range(7):
+            for row_step, column_step in directions:
+                if all(
+                    0 <= row + row_step * offset < 6
+                    and 0 <= column + column_step * offset < 7
+                    and board_state[row + row_step * offset][column + column_step * offset] == mark
+                    for offset in range(4)
+                ):
+                    return True
+    return False
+
+def choose_best_column(board_state):
+    def available_row(column):
+        for row in range(5, -1, -1):
+            if board_state[row][column] == "":
+                return row
+        return None
+
+    def is_winning_move(column, mark):
+        row = available_row(column)
+        if row is None:
+            return False
+        board_state[row][column] = mark
+        won = check_board_winner(board_state, mark)
+        board_state[row][column] = ""
+        return won
+
+    valid_columns = [
+        column for column in range(7)
+        if available_row(column) is not None
+    ]
+    for column in valid_columns:
+        if is_winning_move(column, "O"):
+            return column
+    for column in valid_columns:
+        if is_winning_move(column, "X"):
+            return column
+
+    return min(valid_columns, key=lambda column: abs(3 - column), default=None)
 
 def run_game(parent, root):
     for row in board:
@@ -33,7 +76,7 @@ def run_game(parent, root):
     result_text = None
 
     mixer.init()
-    dir_path=Path(os.path.dirname(__file__))
+    dir_path=Path(os.path.dirname(__file__))/"Audio"
     victory=dir_path/"crowd_small_chil_ec049202_9klCwI6.mp3"
     loser=dir_path/"downer_noise.mp3"
     draw=dir_path/"tung-tung-sahur.mp3"
@@ -92,19 +135,19 @@ def run_game(parent, root):
 
     def npc_turn():
         nonlocal player_turn
-        valid=False
         if game_over:
             return
 
-        while valid==False:
-            column=random.randint(0,6)
-            for row in range(5, -1, -1):
-                if board[row][column]=="":
-                    board[row][column]="O"
-                    valid=True
-                    break
-        
+        column = choose_best_column(board)
+        if column is None:
+            finish_game("Draw")
+            return
 
+        for row in range(5, -1, -1):
+            if board[row][column] == "":
+                board[row][column] = "O"
+                break
+        
         if check_winner("O"):
             loser_audio.play()
             finish_game("You Lose")
@@ -126,10 +169,10 @@ def run_game(parent, root):
     
     def check_winner(mark):
         directions = (
-            (1, 0),   # vertical
-            (0, 1),   # horizontal
-            (1, 1),   # diagonal down-right
-            (1, -1),  # diagonal down-left
+            (1, 0),   
+            (0, 1),   
+            (1, 1),
+            (1, -1),  
         )
 
         for row in range(6):
@@ -188,4 +231,11 @@ def run_game(parent, root):
     return stop_game
 
 if __name__ == "__main__":
-    run_game()
+    root = tk.Tk()
+    root.title("Connect 4")
+    game_frame = tk.Frame(root, width=700, height=600)
+    game_frame.pack()
+    game_frame.pack_propagate(False)
+    root.update_idletasks()
+    run_game(game_frame, root)
+    root.mainloop()

@@ -1,6 +1,7 @@
 import pygame
 import os
 import random
+import tkinter as tk
 from pygame import mixer
 from pathlib import Path
 
@@ -10,6 +11,63 @@ board=[["", "", ""],
 
 win=False
 red=(255,0,0)
+
+def _winner(board_state, mark):
+    lines = board_state + [
+        [board_state[0][column], board_state[1][column], board_state[2][column]]
+        for column in range(3)
+    ] + [
+        [board_state[0][0], board_state[1][1], board_state[2][2]],
+        [board_state[0][2], board_state[1][1], board_state[2][0]],
+    ]
+    return any(all(cell == mark for cell in line) for line in lines)
+
+def choose_best_move(board_state, mark="O"):
+    opponent = "X" if mark == "O" else "O"
+
+    def minimax(current_board, maximizing, alpha, beta):
+        if _winner(current_board, mark):
+            return 1
+        if _winner(current_board, opponent):
+            return -1
+
+        empty_cells = [
+            (row, column)
+            for row in range(3)
+            for column in range(3)
+            if current_board[row][column] == ""
+        ]
+        if not empty_cells:
+            return 0
+
+        scores = []
+        for row, column in empty_cells:
+            current_board[row][column] = mark if maximizing else opponent
+            score = minimax(current_board, not maximizing, alpha, beta)
+            current_board[row][column] = ""
+            scores.append(score)
+
+            if maximizing:
+                alpha = max(alpha, score)
+            else:
+                beta = min(beta, score)
+            if beta <= alpha:
+                break
+
+        return max(scores) if maximizing else min(scores)
+
+    best_score = float("-inf")
+    best_move = None
+    for row in range(3):
+        for column in range(3):
+            if board_state[row][column] == "":
+                board_state[row][column] = mark
+                score = minimax(board_state, False, float("-inf"), float("inf"))
+                board_state[row][column] = ""
+                if score > best_score:
+                    best_score = score
+                    best_move = (row, column)
+    return best_move
 green=(0,255,0)
 blue=(0,0,255)
 white=(255,255,255)
@@ -32,7 +90,7 @@ def run_game(parent, root):
     result_text = None
 
     mixer.init()
-    dir_path=Path(os.path.dirname(__file__))
+    dir_path=Path(os.path.dirname(__file__))/"Audio"
     victory=dir_path/"crowd_small_chil_ec049202_9klCwI6.mp3"
     loser=dir_path/"downer_noise.mp3"
     draw=dir_path/"tung-tung-sahur.mp3"
@@ -84,16 +142,11 @@ def run_game(parent, root):
         if game_over:
             return
 
-        empty_cells = [
-            (row, column)
-            for row in range(3)
-            for column in range(3)
-            if board[row][column] == ""
-        ]
-        if not empty_cells:
+        move = choose_best_move(board, "O")
+        if move is None:
             return
 
-        row, column = random.choice(empty_cells)
+        row, column = move
         board[row][column] = "O"
         if check_winner("O"):
             loser_audio.play()
@@ -153,4 +206,11 @@ def run_game(parent, root):
     return stop_game
 
 if __name__ == "__main__":
-    run_game()
+    root = tk.Tk()
+    root.title("Tic-Tac-Toe")
+    game_frame = tk.Frame(root, width=600, height=600)
+    game_frame.pack()
+    game_frame.pack_propagate(False)
+    root.update_idletasks()
+    run_game(game_frame, root)
+    root.mainloop()
