@@ -94,9 +94,9 @@ def run_game(parent, root):
             exploded_cell = (y, x)
             finish_game()
             return
-    
+           
+        safe=-1
         revealed[y][x]=True
-        safe-=1
         if safe == 0:
             game_over=True
             finish_game()

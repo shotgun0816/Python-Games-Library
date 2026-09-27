@@ -12,6 +12,7 @@ board=[["", "", "", "", "", "", ""],
        ["", "", "", "", "", "", ""],]
 
 red=(255, 0, 0)
+light_red=(255, 75, 75)
 
 win=False
 
@@ -163,7 +164,7 @@ def run_game(parent, root):
                 if mark == "":
                     continue
 
-                color = "red" if mark == "X" else "yellow"
+                color = light_red if mark == "X" else "yellow"
                 center = (x * 100 + 50, y * 100 + 50)
                 pygame.draw.circle(game_screen, color, center, 40)
     
@@ -209,7 +210,7 @@ def run_game(parent, root):
         for event in pygame.event.get():
             handle_event(event)
                         
-        game_screen.fill("black")
+        game_screen.fill("lightgrey")
         draw_lines()
         draw_marks()
 

@@ -11,6 +11,8 @@ board=[["", "", ""],
 
 win=False
 red=(255,0,0)
+light_red=(255, 75 ,75)
+dark_green=(0,170,0)
 
 def _winner(board_state, mark):
     lines = board_state + [
@@ -71,7 +73,7 @@ def choose_best_move(board_state, mark="O"):
 green=(0,255,0)
 blue=(0,0,255)
 white=(255,255,255)
-11
+
 def run_game(parent, root):
     for row in board:
         row[:] = ["", "", ""]
@@ -115,9 +117,11 @@ def run_game(parent, root):
             for column in range(3):
                 mark=board[row][column]
                 if mark:
-                    text=mark_font.render(mark, True, white)
+                    color=dark_green if mark=="X" else light_red
+                    text=mark_font.render(mark, True, color)
                     position=text.get_rect(center=(column * 200 + 100, row * 200 + 100))
                     game_screen.blit(text, position)
+
 
     def check_winner(mark):
         lines = board + [
@@ -186,7 +190,7 @@ def run_game(parent, root):
         for event in pygame.event.get():
             handle_event(event)
                     
-        game_screen.fill("black")
+        game_screen.fill("lightgrey")
         draw_lines()
         draw_marks()
         if result_text:

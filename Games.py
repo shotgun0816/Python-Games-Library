@@ -24,7 +24,7 @@ def main():
                 game1_font=tkFont.Font(family="Times", size=30)
                 game1_title=tk.Label(root, text="Tic Tac Toe", font=game1_font)
                 game1_title.pack(side="top", pady=5)
-                game1_frame=tk.Frame(root, width=600, height=600, bg="black")
+                game1_frame=tk.Frame(root, width=600, height=600, bg="lightgrey")
                 game1_frame.pack(side="top", pady=5)
                 game1_frame.pack_propagate(False)
 
@@ -47,7 +47,7 @@ def main():
                 game2_font=tkFont.Font(family="Times", size=30)
                 game2_title=tk.Label(root, text="Connect 4", font=game2_font)
                 game2_title.pack(side="top", pady=5)
-                game2_frame=tk.Frame(root, width=700, height=600, bg="black")
+                game2_frame=tk.Frame(root, width=700, height=600, bg="lightgrey")
                 game2_frame.pack(side="top", pady=5)
                 game2_frame.pack_propagate(False)
                
@@ -70,7 +70,7 @@ def main():
                game3_font=tkFont.Font(family="Times", size=30)
                game3_title=tk.Label(root, text="Minesweeper", font=game3_font)
                game3_title.pack(side="top", pady=5)
-               game3_frame=tk.Frame(root, width=600, height=600, bg="black")
+               game3_frame=tk.Frame(root, width=600, height=600, bg="lightgrey")
                game3_frame.pack(side="top", pady=5)
                game3_frame.pack_propagate(False)
 
