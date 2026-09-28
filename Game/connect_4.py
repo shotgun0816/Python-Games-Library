@@ -69,7 +69,6 @@ def run_game(parent, root):
     pygame.init()
     game_screen=pygame.display.set_mode((700,600))
     pygame.display.set_caption("Connect 4")
-    mark_font=pygame.font.Font(None, 160)
     result_font=pygame.font.Font(None, 200)
     after_id = None
     game_running = True
