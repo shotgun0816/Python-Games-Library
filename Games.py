@@ -1,11 +1,9 @@
 import tkinter as tk
-from tkinter import PhotoImage
 import tkinter.font as tkFont
 from Game import tic_tac_toe as game_1
 from Game import connect_4 as game_2
 from Game import minesweeper as game_3
 from Game import wordle as game_4
-from pathlib import Path
 import os
 
 def main():
