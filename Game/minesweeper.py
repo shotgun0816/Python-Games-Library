@@ -23,6 +23,7 @@ board=[["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
 
 white=(255, 255, 255)
 light_red=(255, 75 ,75)
+dark_green=(0, 170, 0)
 
 def run_game(parent, root):
     for row in board:
@@ -145,10 +146,10 @@ def run_game(parent, root):
         nonlocal result_text
         if game_over==True and game_lose==True:
             loser_audio.play()
-            result_text=result_font.render("You Lose", True, "red")
+            result_text=result_font.render("You Lose", True, light_red)
         elif game_over==True and safe==0:
             victory_audio.play()
-            result_text=result_font.render("You Win", True, "green")
+            result_text=result_font.render("You Win", True, dark_green)
 
     def game_loop():
         nonlocal after_id

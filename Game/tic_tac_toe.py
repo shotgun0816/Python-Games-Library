@@ -13,6 +13,7 @@ win=False
 red=(255,0,0)
 light_red=(255, 75 ,75)
 dark_green=(0,170,0)
+light_green=(75,255,75)
 
 def _winner(board_state, mark):
     lines = board_state + [
@@ -139,7 +140,8 @@ def run_game(parent, root):
     def finish_game(message):
         nonlocal game_over, result_text
         game_over = True
-        result_text = result_font.render(message, True, red)
+        color=light_green if player_turn==True else light_red
+        result_text = result_font.render(message, True, color)
 
     def npc_turn():
         nonlocal player_turn

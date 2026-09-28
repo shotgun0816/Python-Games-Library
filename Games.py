@@ -4,6 +4,7 @@ import tkinter.font as tkFont
 from Game import tic_tac_toe as game_1
 from Game import connect_4 as game_2
 from Game import minesweeper as game_3
+from Game import wordle as game_4
 from pathlib import Path
 import os
 
@@ -86,8 +87,30 @@ def main():
 
                return_button=tk.Button(root, text="Return to Menu", width=25, command=return_to_menu)
                return_button.pack(side="top", pady=20)
-              
-               
+
+        
+        def launch_wordle():
+               menu.forget()
+               root.title("Wordle")
+               game4_font=tkFont.Font(family="Times", size=30)
+               game4_title=tk.Label(root, text="Wordle", font=game4_font)
+               game4_title.pack(side="top", pady=5)
+               game4_frame=tk.Frame(root, width=600, height=600, bg="lightgrey")
+               game4_frame.pack(side="top", pady=5)
+               game4_frame.pack_propagate(False)
+
+               stop_game=game_4.run_game(game4_frame, root)
+
+               def return_to_menu():
+                      stop_game()
+                      root.title("Games")
+                      game4_frame.destroy()
+                      game4_title.destroy()
+                      return_button.destroy()
+                      menu.pack(fill="both")
+
+               return_button=tk.Button(root, text="Return to Menu", width=25, command=return_to_menu)
+               return_button.pack(side="top", pady=20)
 
         button_1=tk.Button(menu, text="Tic Tac Toe", width=50, command=launch_tic_tac_toe)
         button_1.pack(side="top", pady=5)
@@ -97,6 +120,9 @@ def main():
 
         button_3=tk.Button(menu, text="Minesweeper", width=50, command=launch_minesweeper)
         button_3.pack(side="top", pady=5)
+
+        button_4=tk.Button(menu, text="Wordle", width=50, command=launch_wordle)
+        button_4.pack(side="top", pady=5)
 
         exit=tk.Button(menu, text="Quit", width=50, command=root.destroy)
         exit.pack(side="top", pady=50)
