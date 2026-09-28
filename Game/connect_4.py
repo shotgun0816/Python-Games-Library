@@ -13,6 +13,7 @@ board=[["", "", "", "", "", "", ""],
 
 red=(255, 0, 0)
 light_red=(255, 75, 75)
+light_green=(0, 250, 0)
 
 win=False
 
@@ -200,7 +201,8 @@ def run_game(parent, root):
     def finish_game(message):
         nonlocal game_over, result_text
         game_over = True
-        result_text = result_font.render(message, True, red)
+        color=light_green if player_turn==True else red
+        result_text = result_font.render(message, True, color)
 
     def game_loop():
         nonlocal after_id
