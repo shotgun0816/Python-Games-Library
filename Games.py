@@ -1,26 +1,67 @@
 import tkinter as tk
+from tkinter import *
 import tkinter.font as tkFont
 from Game import tic_tac_toe as game_1
 from Game import connect_4 as game_2
 from Game import minesweeper as game_3
 from Game import wordle as game_4
+from tkinter import PhotoImage
+from tkinter.ttk import *
+from pathlib import Path
+from PIL import Image, ImageTk
 import os
 
 def main():
         root=tk.Tk()
-        root.geometry("2000x2500")
+        root.geometry("900x700")
         root.title("Games")
         menu=tk.Frame(root)
-        menu.pack(fill="both")
+        menu.configure(bg="light yellow")
+        menu.pack(fill="both", expand=True)
+        menu.grid_rowconfigure(1, weight=1)
+        menu.grid_columnconfigure(0, weight=1)
 
+        dir_path=Path(__file__).parent/"Images"
+        icon_path=dir_path/"icon.png"
+        icon=PhotoImage(file=icon_path)
+        root.iconphoto(False, icon)
+
+        game1_path=dir_path/"tic-tac-toe.png"
+        game1_icon=Image.open(game1_path)
+        re_game1_icon=game1_icon.resize((100,100))
+        img1=ImageTk.PhotoImage(re_game1_icon)
+
+        game2_path=dir_path/"connect-four.jpg"
+        game2_icon=Image.open(game2_path)
+        re_game2_icon=game2_icon.resize((100,100))
+        img2=ImageTk.PhotoImage(re_game2_icon)
+        
+        game3_path=dir_path/"minesweeper.png"
+        game3_icon=Image.open(game3_path)
+        re_game3_icon=game3_icon.resize((100,100))
+        img3=ImageTk.PhotoImage(re_game3_icon)
+        
+        game4_path=dir_path/"wordle.webp"
+        game4_icon=Image.open(game4_path)
+        re_game4_icon=game4_icon.resize((100,100))
+        img4=ImageTk.PhotoImage(re_game4_icon)
+
+        game5_path=dir_path/"typing-test.png"
+        game5_icon=Image.open(game5_path)
+        re_game5_icon=game5_icon.resize((100,100))
+        img5=ImageTk.PhotoImage(re_game5_icon)
+        
         title_font=tkFont.Font(family="Impact", size=30)
         label_title=tk.Label(menu, text="Games.py", font=title_font)
-        label_title.pack(side="top", pady=50)
+        label_title.grid(row=0, column=0, pady=(40, 20))
+        games_frame=tk.Frame(menu)
+        games_frame.grid(row=1, column=0)
         
         def launch_tic_tac_toe():
                 menu.forget()
                 root.title("Tic Tac Toe")
-                game1_font=tkFont.Font(family="Times", size=30)
+                root.configure(bg="light yellow")
+                game1_font=tkFont.Font(family="Impact", size=30)
                 game1_title=tk.Label(root, text="Tic Tac Toe", font=game1_font)
                 game1_title.pack(side="top", pady=5)
                 game1_frame=tk.Frame(root, width=600, height=600, bg="lightgrey")
@@ -35,7 +76,7 @@ def main():
                         game1_frame.destroy()
                         game1_title.destroy()
                         return_button.destroy()
-                        menu.pack(fill="both")
+                        menu.pack(fill="both", expand=True)
 
                 return_button=tk.Button(root, text="Return to Menu", width=25, command=return_to_menu)
                 return_button.pack(side="top", pady=20)
@@ -43,7 +84,8 @@ def main():
         def launch_connect_4():
                 menu.forget()
                 root.title("Connect 4")
-                game2_font=tkFont.Font(family="Times", size=30)
+                root.configure(bg="light yellow")
+                game2_font=tkFont.Font(family="Impact", size=30)
                 game2_title=tk.Label(root, text="Connect 4", font=game2_font)
                 game2_title.pack(side="top", pady=5)
                 game2_frame=tk.Frame(root, width=700, height=600, bg="lightgrey")
@@ -58,7 +100,7 @@ def main():
                         game2_frame.destroy()
                         game2_title.destroy()
                         return_button.destroy()
-                        menu.pack(fill="both")
+                        menu.pack(fill="both", expand=True)
                
                 return_button=tk.Button(root, text="Return to Menu", width=25, command=return_to_menu)
                 return_button.pack(side="top", pady=20)
@@ -66,7 +108,8 @@ def main():
         def launch_minesweeper():
                menu.forget()
                root.title("Minesweeper")
-               game3_font=tkFont.Font(family="Times", size=30)
+               root.configure(bg="light yellow")
+               game3_font=tkFont.Font(family="Impact", size=30)
                game3_title=tk.Label(root, text="Minesweeper", font=game3_font)
                game3_title.pack(side="top", pady=5)
                game3_frame=tk.Frame(root, width=600, height=600, bg="lightgrey")
@@ -81,7 +124,7 @@ def main():
                       game3_frame.destroy()
                       game3_title.destroy()
                       return_button.destroy()
-                      menu.pack(fill="both")
+                      menu.pack(fill="both", expand=True)
 
                return_button=tk.Button(root, text="Return to Menu", width=25, command=return_to_menu)
                return_button.pack(side="top", pady=20)
@@ -89,7 +132,8 @@ def main():
         def launch_wordle():
                menu.forget()
                root.title("Wordle")
-               game4_font=tkFont.Font(family="Times", size=30)
+               root.configure(bg="light yellow")
+               game4_font=tkFont.Font(family="Impact", size=30)
                game4_title=tk.Label(root, text="Wordle", font=game4_font)
                game4_title.pack(side="top", pady=5)
                game4_frame=tk.Frame(root, width=600, height=600, bg="lightgrey")
@@ -104,25 +148,28 @@ def main():
                       game4_frame.destroy()
                       game4_title.destroy()
                       return_button.destroy()
-                      menu.pack(fill="both")
+                      menu.pack(fill="both", expand=True)
 
                return_button=tk.Button(root, text="Return to Menu", width=25, command=return_to_menu)
                return_button.pack(side="top", pady=20)
 
-        button_1=tk.Button(menu, text="Tic Tac Toe", width=50, command=launch_tic_tac_toe)
-        button_1.pack(side="top", pady=5)
+        button_1=tk.Button(games_frame, text="Tic Tac Toe", image=img1, command=launch_tic_tac_toe)
+        button_1.pack(side="left", padx=5)
 
-        button_2=tk.Button(menu, text="Connect 4", width=50, command=launch_connect_4)
-        button_2.pack(side="top", pady=5)
+        button_2=tk.Button(games_frame, text="Connect 4", image=img2, command=launch_connect_4)
+        button_2.pack(side="left", padx=5)
 
-        button_3=tk.Button(menu, text="Minesweeper", width=50, command=launch_minesweeper)
-        button_3.pack(side="top", pady=5)
+        button_3=tk.Button(games_frame, text="Minesweeper", image=img3, command=launch_minesweeper)
+        button_3.pack(side="left", padx=5)
 
-        button_4=tk.Button(menu, text="Wordle", width=50, command=launch_wordle)
-        button_4.pack(side="top", pady=5)
+        button_4=tk.Button(games_frame, text="Wordle", image=img4, command=launch_wordle)
+        button_4.pack(side="left", padx=5)
+
+        button_5=tk.Button(games_frame, text="Type Practice", image=img5)
+        button_5.pack(side="left", padx=5)
 
         exit=tk.Button(menu, text="Quit", width=50, command=root.destroy)
-        exit.pack(side="top", pady=50)
+        exit.grid(row=2, column=0, pady=(10, 50))
 
         root.mainloop()
         
