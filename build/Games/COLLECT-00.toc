@@ -14,6 +14,7 @@
   ('Images\\connect-four.jpg',
    'C:\\Python Games\\Images\\connect-four.jpg',
    'DATA'),
+  ('Images\\icon.ico', 'C:\\Python Games\\Images\\icon.ico', 'DATA'),
   ('Images\\icon.png', 'C:\\Python Games\\Images\\icon.png', 'DATA'),
   ('Images\\minesweeper.png',
    'C:\\Python Games\\Images\\minesweeper.png',
