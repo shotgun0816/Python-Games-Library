@@ -13,7 +13,7 @@ def main():
         menu=tk.Frame(root)
         menu.pack(fill="both")
 
-        title_font=tkFont.Font(family="Times", size=30)
+        title_font=tkFont.Font(family="Impact", size=30)
         label_title=tk.Label(menu, text="Games.py", font=title_font)
         label_title.pack(side="top", pady=50)
         
@@ -86,7 +86,6 @@ def main():
                return_button=tk.Button(root, text="Return to Menu", width=25, command=return_to_menu)
                return_button.pack(side="top", pady=20)
 
-        
         def launch_wordle():
                menu.forget()
                root.title("Wordle")
