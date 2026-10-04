@@ -1,15 +1,17 @@
 import tkinter as tk
 from tkinter import *
 import tkinter.font as tkFont
+
 from Game import tic_tac_toe as game_1
 from Game import connect_4 as game_2
 from Game import minesweeper as game_3
 from Game import wordle as game_4
+from Game import type_practice as game_5
+
 from tkinter import PhotoImage
 from tkinter.ttk import *
 from pathlib import Path
 from PIL import Image, ImageTk
-import os
 
 def main():
         root=tk.Tk()
@@ -153,6 +155,30 @@ def main():
                return_button=tk.Button(root, text="Return to Menu", width=25, command=return_to_menu)
                return_button.pack(side="top", pady=20)
 
+        def launch_type_practice():
+               menu.forget()
+               root.title("Type Practice")
+               root.configure(bg="light yellow")
+               game5_font=tkFont.Font(family="Impact", size=30)
+               game5_title=tk.Label(root, text="Type Practice", font=game5_font)
+               game5_title.pack(side="top", pady=5)
+               game5_frame=tk.Frame(root, width=700, height=400, bg="black")
+               game5_frame.pack(side="top", pady=5)
+               game5_frame.pack_propagate(False)
+
+               stop_game=game_5.run_game(game5_frame, root)
+
+               def return_to_menu():
+                      stop_game()
+                      root.title("Games")
+                      game5_frame.destroy()
+                      game5_title.destroy()
+                      return_button.destroy()
+                      menu.pack(fill="both", expand=True)
+
+               return_button=tk.Button(root, text="Return to Menu", width=25, command=return_to_menu)
+               return_button.pack(side="top", pady=20)
+
         button_1=tk.Button(games_frame, text="Tic Tac Toe", image=img1, command=launch_tic_tac_toe)
         button_1.pack(side="left", padx=5)
 
@@ -165,7 +191,7 @@ def main():
         button_4=tk.Button(games_frame, text="Wordle", image=img4, command=launch_wordle)
         button_4.pack(side="left", padx=5)
 
-        button_5=tk.Button(games_frame, text="Type Practice", image=img5)
+        button_5=tk.Button(games_frame, text="Type Practice", image=img5, command=launch_type_practice)
         button_5.pack(side="left", padx=5)
 
         exit=tk.Button(menu, text="Quit", width=50, command=root.destroy)
