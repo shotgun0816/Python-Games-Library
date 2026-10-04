@@ -162,7 +162,7 @@ def main():
                game5_font=tkFont.Font(family="Impact", size=30)
                game5_title=tk.Label(root, text="Type Practice", font=game5_font)
                game5_title.pack(side="top", pady=5)
-               game5_frame=tk.Frame(root, width=700, height=400, bg="black")
+               game5_frame=tk.Frame(root, width=1200, height=600, bg="black")
                game5_frame.pack(side="top", pady=5)
                game5_frame.pack_propagate(False)
 
