@@ -17,6 +17,7 @@ def main():
         root=tk.Tk()
         root.geometry("900x700")
         root.title("Games")
+        root.configure(cursor="tcross")
         menu=tk.Frame(root)
         menu.configure(bg="light yellow")
         menu.pack(fill="both", expand=True)
